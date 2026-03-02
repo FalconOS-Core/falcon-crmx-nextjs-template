@@ -3,15 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
-      // Allow all HTTPS image sources
-      {
-        protocol: "https",
-        hostname: "**",
-      },
-      {
-        protocol: "http",
-        hostname: "**",
-      },
+      { protocol: "https", hostname: "**" },
+      { protocol: "http", hostname: "**" },
     ],
   },
 
@@ -20,17 +13,26 @@ const nextConfig: NextConfig = {
       {
         source: "/(.*)",
         headers: [
-          // Allow embedding in Falcon builder iframe from localhost + production domains
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          // ❌ REMOVED: X-Frame-Options: SAMEORIGIN
+          // When both X-Frame-Options AND CSP frame-ancestors are present,
+          // browsers enforce the MORE restrictive policy. SAMEORIGIN blocks
+          // all external origins regardless of what CSP allows.
+          // Modern standard: use CSP frame-ancestors only.
           {
             key: "Content-Security-Policy",
             value: [
               "frame-ancestors",
               "'self'",
-              "localhost:*",
-              "*.falcon.build",
-              "falcon.build",
-              "*.vercel.app",
+              // ❌ localhost:* is INVALID CSP — wildcard ports not supported.
+              // Must enumerate each port explicitly.
+              "http://localhost:3000",
+              "http://localhost:3001",
+              "http://localhost:7200",
+              // Production Falcon domains
+              "https://*.falcon.build",
+              "https://falcon.build",
+              // Allow embedding within any Vercel deployment
+              "https://*.vercel.app",
             ].join(" "),
           },
         ],
