@@ -19,10 +19,10 @@ export default function Home() {
         {/* Heading */}
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-            Falcon CRM Template
+            Falcon
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            A production-ready Next.js template for building beautiful, accessible CRMs
+            A production-ready Next.js boilerplate for building robust, accessible CRMs
           </p>
         </div>
 
