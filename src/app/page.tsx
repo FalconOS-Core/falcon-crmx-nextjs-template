@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-b from-background to-muted/20">
+    <main className="min-h-screen flex flex-col items-center justify-center p-8 bg-linear-to-b from-background to-muted/20">
       <div className="max-w-4xl mx-auto text-center space-y-12">
         {/* Logo */}
         <div className="flex justify-center">
