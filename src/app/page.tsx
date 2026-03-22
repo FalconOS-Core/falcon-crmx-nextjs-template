@@ -21,9 +21,9 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
             Falcon
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          {/* <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
             A production-ready Next.js boilerplate for building robust, accessible CRMs
-          </p>
+          </p> */}
         </div>
 
         {/* Quote */}
