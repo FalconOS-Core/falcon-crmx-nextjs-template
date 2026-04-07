@@ -7,9 +7,9 @@ config();
 
 let db: any = null;
 
-if (process.env.DATABASE_POOLER_URL) {
+if (process.env.DATABASE_URL) {
   console.log("🗄️  Using PostgreSQL database");
-  const client = postgres(process.env.DATABASE_POOLER_URL);
+  const client = postgres(process.env.DATABASE_URL);
   db = drizzle(client, { schema });
 }
 

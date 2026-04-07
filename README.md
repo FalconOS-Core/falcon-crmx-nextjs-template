@@ -1,23 +1,21 @@
 # Falcon CRM Template
 
-> A production-ready Next.js template designed for the Falcon Agent to build custom CRMs for agencies. Built with TypeScript, Tailwind CSS v4, shadcn/ui, and modern React patterns.
+> A production-ready Next.js template designed for the Falcon Agent to build custom CRMs for agencies. Built with TypeScript, Tailwind CSS v4, shadcn/ui, Supabase Auth, and Neon PostgreSQL.
 
 ## 🎯 Purpose
 
-This template serves as the foundation for Falcon Agent to create, customize, and build beautiful, accessible CRMs for agencies. It provides a complete design system, pre-built components, and a scalable architecture that can be extended for any CRM use case.
+This template serves as the foundation for Falcon Agent to create, customize, and build beautiful, accessible CRMs for agencies. It provides a complete design system, pre-built components, authentication with Supabase, PostgreSQL database with Drizzle ORM, and a scalable architecture that can be extended for any CRM use case.
 
 ## 📋 Table of Contents
 
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
-- [Design System](#-design-system)
+- [Database Setup](#-database-setup)
+- [Supabase Authentication](#-supabase-authentication)
+- [Available Scripts](#-available-scripts)
 - [Components](#-components)
-- [Providers](#-providers)
-- [Hooks](#-hooks)
-- [Database](#-database)
-- [Styling](#-styling)
-- [Configuration](#-configuration)
+- [Design System](#-design-system)
 - [Development Guidelines](#-development-guidelines)
 - [Building for Production](#-building-for-production)
 
@@ -29,82 +27,138 @@ This template serves as the foundation for Falcon Agent to create, customize, an
 - **React 19.2.3** - UI library with latest features
 - **TypeScript 5.x** - Type-safe development
 
+### Database & ORM
+
+- **Neon PostgreSQL** - Serverless PostgreSQL database
+- **Drizzle ORM 0.45.2** - TypeScript-first ORM
+- **Drizzle Kit 0.31.10** - Schema management and migrations
+- **postgres 3.4.9** - PostgreSQL client for Node.js
+
+### Authentication
+
+- **Supabase Auth** - Complete authentication solution
+- **@supabase/ssr 0.9.0** - Server-side rendering support
+- **@supabase/supabase-js 2.101.1** - Supabase JavaScript client
+
 ### Styling & Design
 
 - **Tailwind CSS v4** - Utility-first CSS framework
 - **shadcn/ui** - Accessible component library (New York style)
-- **Radix UI** - Unstyled, accessible UI primitives
-- **class-variance-authority** - Component variant management
-- **tailwind-merge** - Merge Tailwind classes without conflicts
+- **Radix UI 1.4.3** - Unstyled, accessible UI primitives
+- **class-variance-authority 0.7.1** - Component variant management
+- **tailwind-merge 3.4.0** - Merge Tailwind classes without conflicts
 
-### UI & Animation
+### UI & Icons
 
-- **Framer Motion 12.34.0** - Animation library
-- **Lucide React** - Icon library
-- **Tabler Icons** - Additional icon set
-- **next-themes** - Dark mode support
+- **Lucide React 0.563.0** - Icon library
+- **Tabler Icons 3.36.1** - Additional icon set
+- **next-themes 0.4.6** - Dark mode support
 
-### Data & Forms
+### Forms & Validation
 
-- **Drizzle ORM 0.45.1** - TypeScript ORM
-- **@libsql/client 0.17.0** - LibSQL/Turso database client
-- **Drizzle Kit 0.31.9** - Schema management and migrations
-- **date-fns** - Date manipulation
-- **react-day-picker** - Calendar component
+- **react-hook-form 7.71.2** - Form state management
+- **@hookform/resolvers 5.2.2** - Form validation resolvers
+- **zod 4.3.6** - TypeScript-first schema validation
+
+### Data Visualization
+
+- **Recharts 2.15.4** - Chart components
+- **date-fns 4.1.0** - Date manipulation
+- **react-day-picker 9.13.1** - Calendar component
 
 ### Additional Libraries
 
-- **Recharts** - Chart components
-- **Embla Carousel** - Carousel functionality
-- **Sonner** - Toast notifications
-- **Vaul** - Drawer component
+- **Sonner 2.0.7** - Toast notifications
+- **Vaul 1.1.2** - Drawer component
+- **dotenv 17.2.4** - Environment variable management
 
 ### Development Tools
 
 - **Biome 2.2.0** - Fast linter and formatter
-- **pnpm** - Fast, disk space efficient package manager
-- **tsx** - TypeScript execution
+- **pnpm 10.18.0** - Fast, disk space efficient package manager
+- **tsx 4.21.0** - TypeScript execution
 
 ## 📁 Project Structure
 
 ```
 falcon-crm-template/
-├── .next/                      # Next.js build output
+├── .git/                       # Git repository
+├── .vscode/                    # VS Code settings
 ├── node_modules/               # Dependencies
 ├── public/                     # Static assets
-│   ├── file.svg
-│   ├── globe.svg
-│   ├── next.svg
-│   ├── vercel.svg
-│   └── window.svg
+│   ├── falcon-full-black.webp  # Logo (black)
+│   ├── falcon-full-white.webp  # Logo (white)
+│   ├── falcon-full.webp        # Logo (full color)
+│   └── falcon.webp             # Logo (icon)
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── favicon.ico
+│   │   ├── favicon.ico         # Site favicon
 │   │   ├── globals.css         # Global styles & design tokens
 │   │   ├── layout.tsx          # Root layout with providers
 │   │   └── page.tsx            # Home page
 │   ├── components/
-│   │   ├── ui/                 # shadcn/ui components (40+ components)
-│   │   └── uitripled/          # Custom glassmorphism components
-│   │       ├── glass-forgot-password-card.tsx
-│   │       ├── glass-sign-up-card.tsx
-│   │       └── glassmorphism-statistics-card.tsx
+│   │   └── ui/                 # shadcn/ui components (38 components)
+│   │       ├── accordion.tsx
+│   │       ├── alert-dialog.tsx
+│   │       ├── alert.tsx
+│   │       ├── aspect-ratio.tsx
+│   │       ├── avatar.tsx
+│   │       ├── badge.tsx
+│   │       ├── breadcrumb.tsx
+│   │       ├── button.tsx
+│   │       ├── calendar.tsx
+│   │       ├── card.tsx
+│   │       ├── chart.tsx
+│   │       ├── checkbox.tsx
+│   │       ├── collapsible.tsx
+│   │       ├── context-menu.tsx
+│   │       ├── dialog.tsx
+│   │       ├── direction.tsx
+│   │       ├── drawer.tsx
+│   │       ├── dropdown-menu.tsx
+│   │       ├── empty.tsx
+│   │       ├── form.tsx
+│   │       ├── input.tsx
+│   │       ├── label.tsx
+│   │       ├── menubar.tsx
+│   │       ├── pagination.tsx
+│   │       ├── popover.tsx
+│   │       ├── progress.tsx
+│   │       ├── scroll-area.tsx
+│   │       ├── select.tsx
+│   │       ├── separator.tsx
+│   │       ├── sheet.tsx
+│   │       ├── sidebar.tsx
+│   │       ├── skeleton.tsx
+│   │       ├── slider.tsx
+│   │       ├── sonner.tsx
+│   │       ├── switch.tsx
+│   │       ├── table.tsx
+│   │       ├── tabs.tsx
+│   │       ├── textarea.tsx
+│   │       └── tooltip.tsx
 │   ├── hooks/                  # Custom React hooks
-│   │   └── use-mobile.ts
+│   │   └── use-mobile.ts       # Mobile detection hook
 │   ├── lib/                    # Utility functions
-│   │   ├── db/                 # Database layer
-│   │   │   ├── client.ts       # LibSQL client & Drizzle instance
+│   │   ├── db/                 # Database layer (⚠️ CRITICAL)
+│   │   │   ├── connection.ts   # PostgreSQL client & Drizzle instance
 │   │   │   ├── index.ts        # Database exports
-│   │   │   ├── migrations/     # Database migrations
+│   │   │   ├── migrate.ts      # Migration runner script
+│   │   │   ├── migrations/     # Generated migration files
 │   │   │   └── schema.ts       # Database schema definitions
 │   │   └── utils.ts            # cn() helper for class merging
-│   └── providers/              # React context providers
-│       ├── index.ts
-│       └── theme.tsx           # Theme provider for dark mode
+│   ├── providers/              # React context providers
+│   │   ├── index.ts            # Provider exports
+│   │   └── theme.tsx           # Theme provider for dark mode
+│   └── supabase/               # Supabase clients (⚠️ CRITICAL)
+│       ├── admin.ts            # Admin client (service role)
+│       ├── client.ts           # Browser client
+│       └── server.ts           # Server client (SSR)
 ├── .env.example                # Environment variables template
-├── .gitignore
+├── .gitignore                  # Git ignore rules
 ├── biome.json                  # Biome configuration
 ├── components.json             # shadcn/ui configuration
+├── COMPONENTS.md               # Component documentation
 ├── drizzle.config.ts           # Drizzle Kit configuration
 ├── next.config.ts              # Next.js configuration
 ├── next-env.d.ts               # Next.js TypeScript declarations
@@ -113,8 +167,9 @@ falcon-crm-template/
 ├── pnpm-workspace.yaml         # pnpm workspace config
 ├── postcss.config.mjs          # PostCSS configuration
 ├── README.md                   # This file
-├── shadcn-llms.txt             # shadcn/ui documentation for AI
-└── tsconfig.json               # TypeScript configuration
+├── SUPABASE_SETUP.md           # Supabase setup guide
+├── tsconfig.json               # TypeScript configuration
+└── tsconfig.tsbuildinfo        # TypeScript build info
 ```
 
 ## 🚀 Getting Started
@@ -123,6 +178,8 @@ falcon-crm-template/
 
 - **Node.js**: >= 22.21.0
 - **pnpm**: 10.18.0 (recommended package manager)
+- **Neon PostgreSQL Account**: [Sign up at neon.tech](https://neon.tech)
+- **Supabase Account**: [Sign up at supabase.com](https://supabase.com) (optional, for auth)
 
 ### Installation
 
@@ -134,1893 +191,513 @@ pnpm install
 cp .env.example .env.local
 # Edit .env.local with your actual values
 
+# Generate database migrations
+pnpm db:generate
+
+# Run database migrations
+pnpm db:migrate
+
 # Run development server
 pnpm dev
+```
 
-# Build for production
-pnpm build
+### Environment Variables
 
-# Start production server
-pnpm start
+Create a `.env.local` file in the root directory with the following variables:
 
-# Lint code
+```env
+# ─── Database — Neon PostgreSQL ───────────────────────────────────────────────
+# Get this from: https://console.neon.tech → your project → Connection Details
+DATABASE_URL=postgresql://user:password@ep-example.us-east-2.aws.neon.tech/neondb?sslmode=require
+DATABASE_URL=postgresql://user:password@ep-example-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require
+
+# ─── Supabase Authentication ──────────────────────────────────────────────────
+# Get these from: https://supabase.com/dashboard → Project Settings → API
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# ─── Next.js ──────────────────────────────────────────────────────────────────
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_TELEMETRY_DISABLED=1
+```
+
+### Development Server
+
+```bash
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to see your application.
+
+## 🗄️ Database Setup
+
+This template uses **Neon PostgreSQL** with **Drizzle ORM** for type-safe database operations.
+
+### Database Files Overview
+
+#### `src/lib/db/schema.ts`
+
+**Purpose**: Defines your database schema using Drizzle ORM
+
+**Key Features**:
+
+- PostgreSQL-specific types (UUID, TIMESTAMP, BOOLEAN)
+- Type-safe schema definitions
+- Automatic TypeScript type inference
+- Relations between tables
+
+**Default Schema**:
+
+```typescript
+// Users table (CRM team members)
+export const users = pgTable("users", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  firstName: varchar("first_name", { length: 100 }).notNull(),
+  lastName: varchar("last_name", { length: 100 }).notNull(),
+  role: varchar("role", { length: 50 }).notNull().default("member"),
+  avatarUrl: text("avatar_url"),
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+```
+
+**Usage**:
+
+```typescript
+import { users } from "@/lib/db/schema";
+import { db } from "@/lib/db";
+
+// Query users
+const allUsers = await db.select().from(users);
+
+// Insert user
+await db.insert(users).values({
+  email: "user@example.com",
+  firstName: "John",
+  lastName: "Doe",
+});
+```
+
+#### `src/lib/db/connection.ts`
+
+**Purpose**: Creates and exports the Drizzle database instance
+
+**Key Features**:
+
+- PostgreSQL connection using `postgres` client
+- Environment-based configuration
+- Schema integration
+- Connection pooling support
+
+**Usage**:
+
+```typescript
+import db from "@/lib/db/connection";
+
+// Use db instance for queries
+const users = await db.query.users.findMany();
+```
+
+#### `src/lib/db/index.ts`
+
+**Purpose**: Central export point for database utilities
+
+**Exports**:
+
+- `db` - Drizzle database instance
+
+**Usage**:
+
+```typescript
+import { db } from "@/lib/db";
+```
+
+#### `src/lib/db/migrate.ts`
+
+**Purpose**: Migration runner script for applying database changes
+
+**Key Features**:
+
+- Reads migrations from `src/lib/db/migrations/`
+- Applies migrations in order
+- Tracks applied migrations
+- Error handling and logging
+
+**Usage**:
+
+```bash
+# Run via npm script
+pnpm db:migrate
+
+# Or directly with tsx
+tsx src/lib/db/migrate.ts
+```
+
+**How it works**:
+
+1. Connects to PostgreSQL using `DATABASE_URL`
+2. Reads migration files from `src/lib/db/migrations/`
+3. Applies unapplied migrations in order
+4. Logs progress and completion time
+5. Exits with appropriate status code
+
+#### `src/lib/db/migrations/`
+
+**Purpose**: Stores generated SQL migration files
+
+**Contents**:
+
+- SQL migration files (generated by `drizzle-kit generate`)
+- Migration metadata
+- Journal of applied migrations
+
+**Note**: This directory is auto-generated. Do not edit manually.
+
+### Database Workflow
+
+1. **Define Schema** - Edit `src/lib/db/schema.ts`
+2. **Generate Migration** - Run `pnpm db:generate`
+3. **Review Migration** - Check `src/lib/db/migrations/` for SQL
+4. **Apply Migration** - Run `pnpm db:migrate`
+5. **Use in Code** - Import `db` and query your tables
+
+### Database Scripts
+
+```bash
+# Generate migration from schema changes
+pnpm db:generate
+
+# Apply migrations to database
+pnpm db:migrate
+
+# Push schema directly (skip migrations)
+pnpm db:push
+
+# Open Drizzle Studio (database GUI)
+pnpm db:studio
+
+# Complete setup (generate + migrate)
+pnpm db:setup
+```
+
+### Drizzle Configuration
+
+The `drizzle.config.ts` file configures Drizzle Kit:
+
+```typescript
+export default defineConfig({
+  schema: "./src/lib/db/schema.ts", // Schema location
+  out: "./src/lib/db/migrations", // Migration output
+  dialect: "postgresql", // Database type
+  dbCredentials: {
+    url: process.env.DATABASE_URL!, // Connection string
+  },
+  verbose: true, // Detailed logging
+  strict: true, // Strict mode
+});
+```
+
+## 🔐 Supabase Authentication
+
+This template includes Supabase for authentication. See [SUPABASE_SETUP.md](./SUPABASE_SETUP.md) for detailed setup instructions.
+
+### Supabase Files Overview
+
+#### `src/supabase/client.ts`
+
+**Purpose**: Browser-side Supabase client for client components
+
+**Usage**:
+
+```typescript
+"use client";
+import { createClient } from "@/supabase/client";
+
+export default function ClientComponent() {
+  const supabase = createClient();
+
+  // Sign in
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: "user@example.com",
+    password: "password",
+  });
+}
+```
+
+**When to use**: Client Components, browser-only operations
+
+#### `src/supabase/server.ts`
+
+**Purpose**: Server-side Supabase client for Server Components and API routes
+
+**Usage**:
+
+```typescript
+import { createClient } from "@/supabase/server";
+
+export default async function ServerComponent() {
+  const supabase = await createClient();
+
+  // Get current user
+  const { data: { user } } = await supabase.auth.getUser();
+
+  return <div>Hello {user?.email}</div>;
+}
+```
+
+**When to use**: Server Components, API Routes, Server Actions
+
+#### `src/supabase/admin.ts`
+
+**Purpose**: Admin client with service role key for privileged operations
+
+**⚠️ SECURITY WARNING**: Never import this on the client side!
+
+**Usage**:
+
+```typescript
+import { supabaseAdmin } from "@/supabase/admin";
+
+// Generate email verification link
+const { data, error } = await supabaseAdmin.auth.admin.generateLink({
+  type: "signup",
+  email: "user@example.com",
+});
+```
+
+**When to use**: Server-only operations, admin tasks, bypassing RLS
+
+## 📜 Available Scripts
+
+### Development
+
+```bash
+pnpm dev          # Start development server (http://localhost:3000)
+pnpm build        # Build for production
+pnpm start        # Start production server
+```
+
+### Code Quality
+
+```bash
+pnpm lint         # Run Biome linter
+pnpm format       # Format code with Biome
+```
+
+### Database Operations
+
+```bash
+pnpm db:generate  # Generate migrations from schema changes
+pnpm db:migrate   # Apply migrations to database
+pnpm db:push      # Push schema directly (skip migrations)
+pnpm db:studio    # Open Drizzle Studio (database GUI)
+pnpm db:setup     # Complete setup (generate + migrate)
+```
+
+### Script Details
+
+| Script        | Command                               | Description                                       |
+| ------------- | ------------------------------------- | ------------------------------------------------- |
+| `dev`         | `next dev`                            | Starts Next.js development server with hot reload |
+| `build`       | `next build`                          | Creates optimized production build                |
+| `start`       | `next start`                          | Starts production server (requires build first)   |
+| `lint`        | `biome check`                         | Runs Biome linter to check code quality           |
+| `format`      | `biome format --write`                | Formats code using Biome                          |
+| `db:generate` | `drizzle-kit generate`                | Generates SQL migrations from schema.ts           |
+| `db:migrate`  | `tsx src/db/migrate.ts`               | Runs migration script to apply changes            |
+| `db:push`     | `drizzle-kit push`                    | Pushes schema directly without migrations         |
+| `db:studio`   | `drizzle-kit studio`                  | Opens Drizzle Studio GUI at localhost:4983        |
+| `db:setup`    | `pnpm db:generate && pnpm db:migrate` | Complete database setup                           |
+
+### When to Use Each Database Script
+
+- **`db:generate`**: After modifying `schema.ts`, generates migration files
+- **`db:migrate`**: Applies pending migrations to your database
+- **`db:push`**: Quick prototyping, pushes schema without migration history
+- **`db:studio`**: Visual database browser and editor
+- **`db:setup`**: First-time setup or after pulling schema changes
+
+## 🧩 Components
+
+This template includes 38 shadcn/ui components in `src/components/ui/`. All components are:
+
+- Fully accessible (ARIA compliant)
+- Keyboard navigable
+- Dark mode compatible
+- Customizable with Tailwind CSS
+- Type-safe with TypeScript
+
+### Component Categories
+
+**Form & Input** (9): button, input, textarea, label, checkbox, switch, select, slider, calendar
+
+**Layout** (9): card, separator, scroll-area, sidebar, tabs, accordion, breadcrumb, collapsible, direction
+
+**Overlay** (9): dialog, alert-dialog, sheet, drawer, popover, tooltip, dropdown-menu, context-menu, menubar
+
+**Feedback** (6): alert, sonner, progress, skeleton, badge, empty
+
+**Display** (5): avatar, table, chart, aspect-ratio, pagination
+
+See [COMPONENTS.md](./COMPONENTS.md) for detailed component documentation.
+
+## 🎨 Design System
+
+### Brand Colors (OKLCH)
+
+```css
+--brand-primary: oklch(72.348% 0.17235 53.784)
+  --brand-dim: oklch(72.348% 0.17235 53.784 / 0.12)
+  --brand-glow: oklch(72.348% 0.17235 53.784 / 0.35);
+```
+
+### Typography
+
+```css
+--font-heading: Host Grotesk /* Headings */ --font-body: Inter /* Body text */
+  --font-mono: Geist Mono /* Code */;
+```
+
+### Border Radius
+
+```css
+--radius: 0.625rem (10px) /* Base */ --radius-sm: 6px --radius-md: 8px
+  --radius-lg: 10px --radius-xl: 14px --radius-2xl: 18px --radius-3xl: 22px
+  --radius-4xl: 26px;
+```
+
+### Dark Mode
+
+The template includes a complete dark mode implementation using `next-themes`:
+
+```typescript
+import { ThemeProvider } from "@/providers/theme";
+
+<ThemeProvider attribute="class" defaultTheme="system">
+  {children}
+</ThemeProvider>
+```
+
+## 🛠 Development Guidelines
+
+### Adding New Database Tables
+
+1. Edit `src/lib/db/schema.ts`:
+
+```typescript
+export const contacts = pgTable("contacts", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  ...timestamps,
+});
+```
+
+2. Generate migration:
+
+```bash
+pnpm db:generate
+```
+
+3. Apply migration:
+
+```bash
+pnpm db:migrate
+```
+
+### Using the Database
+
+```typescript
+import { db } from "@/lib/db";
+import { users } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+
+// Select all
+const allUsers = await db.select().from(users);
+
+// Select with condition
+const user = await db
+  .select()
+  .from(users)
+  .where(eq(users.email, "user@example.com"));
+
+// Insert
+await db.insert(users).values({
+  email: "new@example.com",
+  firstName: "Jane",
+  lastName: "Doe",
+});
+
+// Update
+await db.update(users).set({ isActive: false }).where(eq(users.id, userId));
+
+// Delete
+await db.delete(users).where(eq(users.id, userId));
+```
+
+### Adding New Components
+
+```bash
+# Add shadcn/ui component
+pnpm dlx shadcn@latest add [component-name]
+
+# Example: Add command component
+pnpm dlx shadcn@latest add command
+```
+
+### Code Style
+
+This project uses Biome for linting and formatting:
+
+```bash
+# Check code
 pnpm lint
 
 # Format code
 pnpm format
 ```
 
-**Important**: Before running the development server, make sure to:
-
-1. Copy `.env.example` to `.env.local`
-2. Fill in your Turso database credentials (see [Database](#-database) section)
-3. Configure any optional environment variables as needed
-
-### Development Server
-
-Open [http://localhost:3000](http://localhost:3000) to see your application.
-
-## 🎨 Design System
-
-### Brand Colors
-
-The template uses a custom brand color system with OKLCH color space for better perceptual uniformity:
-
-```css
---brand-primary: oklch(72.348% 0.17235 53.784) /* Main brand color */
-  --brand-dim: oklch(72.348% 0.17235 53.784 / 0.12) /* Dimmed version */
-  --brand-glow: oklch(72.348% 0.17235 53.784 / 0.35) /* Glow effect */;
-```
-
-### Color Tokens
-
-#### Light Mode
-
-- `--background`: oklch(0.99 0 0) - Pure white background
-- `--foreground`: oklch(0.18 0 0) - Near black text
-- `--card`: oklch(1 0 0) - White cards
-- `--primary`: Brand primary color
-- `--secondary`: oklch(0.96 0 0) - Light gray
-- `--muted`: oklch(0.96 0 0) - Muted backgrounds
-- `--accent`: oklch(0.94 0 0) - Accent backgrounds
-- `--destructive`: oklch(0.577 0.245 27.325) - Error/danger color
-- `--border`: oklch(0.92 0 0) - Border color
-- `--ring`: Brand primary - Focus ring color
-
-#### Dark Mode (Aura Style)
-
-- `--background`: oklch(0.12 0 0) - Deep zinc background
-- `--foreground`: oklch(0.98 0 0) - Near white text
-- `--card`: oklch(0.18 0 0) - Elevated panels
-- `--primary`: Brand primary color
-- `--secondary`: oklch(0.24 0 0) - Dark gray
-- `--muted`: oklch(0.24 0 0) - Muted backgrounds
-- `--accent`: oklch(0.24 0 0) - Accent backgrounds
-- `--destructive`: oklch(0.704 0.191 22.216) - Error/danger color
-- `--border`: oklch(1 0 0 / 10%) - Subtle borders
-- `--ring`: Brand primary - Focus ring color
-
-### Typography
-
-Three font families are configured:
-
-```typescript
---font-heading: Host Grotesk    // For headings (h1-h6, labels)
---font-body: Inter              // For body text (p, span, small)
---font-mono: Geist Mono         // For code and monospace
-```
-
-### Border Radius
-
-Consistent border radius system:
-
-```css
---radius: 0.625rem (10px) // Base radius
-  --radius-sm: 6px // Small
-  --radius-md: 8px // Medium
-  --radius-lg: 10px // Large (base)
-  --radius-xl: 14px // Extra large
-  --radius-2xl: 18px // 2X large
-  --radius-3xl: 22px // 3X large
-  --radius-4xl: 26px; // 4X large
-```
-
-### Chart Colors
-
-Pre-configured chart color palette:
-
-```css
---chart-1 through --chart-5     // Five distinct colors for data visualization
-```
-
-## 🧩 Components
-
-### shadcn/ui Components (40+ Components)
-
-All components are located in `src/components/ui/` and follow the shadcn/ui patterns.
-
-#### Form & Input Components
-
-- **Button** (`button.tsx`) - Multiple variants (default, destructive, outline, secondary, ghost, link) and sizes (xs, sm, default, lg, icon variants)
-- **Input** (`input.tsx`) - Text input with focus states and validation
-- **Textarea** (`textarea.tsx`) - Multi-line text input
-- **Label** (`label.tsx`) - Form labels
-- **Checkbox** (`checkbox.tsx`) - Checkbox input
-- **Switch** (`switch.tsx`) - Toggle switch
-- **Select** (`select.tsx`) - Dropdown select
-- **Slider** (`slider.tsx`) - Range slider
-- **Calendar** (`calendar.tsx`) - Date picker calendar
-
-#### Layout Components
-
-- **Card** (`card.tsx`) - Container with header, content, footer, title, description, and action slots
-- **Separator** (`separator.tsx`) - Visual divider
-- **Scroll Area** (`scroll-area.tsx`) - Custom scrollable area
-- **Resizable** (`resizable.tsx`) - Resizable panels
-- **Sidebar** (`sidebar.tsx`) - Full-featured collapsible sidebar with mobile support
-- **Tabs** (`tabs.tsx`) - Tabbed interface
-- **Accordion** (`accordion.tsx`) - Collapsible sections
-- **Breadcrumb** (`breadcrumb.tsx`) - Navigation breadcrumbs
-- **Collapsible** (`collapsible.tsx`) - Collapsible container
-
-#### Overlay Components
-
-- **Dialog** (`dialog.tsx`) - Modal dialogs
-- **Alert Dialog** (`alert-dialog.tsx`) - Confirmation dialogs
-- **Sheet** (`sheet.tsx`) - Slide-out panels
-- **Drawer** (`drawer.tsx`) - Mobile-friendly drawer
-- **Popover** (`popover.tsx`) - Floating popovers
-- **Tooltip** (`tooltip.tsx`) - Contextual tooltips
-- **Dropdown Menu** (`dropdown-menu.tsx`) - Dropdown menus
-- **Context Menu** (`context-menu.tsx`) - Right-click menus
-- **Menubar** (`menubar.tsx`) - Horizontal menu bar
-
-#### Feedback Components
-
-- **Alert** (`alert.tsx`) - Alert messages
-- **Sonner** (`sonner.tsx`) - Toast notifications
-- **Progress** (`progress.tsx`) - Progress bars
-- **Skeleton** (`skeleton.tsx`) - Loading placeholders
-- **Badge** (`badge.tsx`) - Status badges
-- **Empty** (`empty.tsx`) - Empty states
-
-#### Display Components
-
-- **Avatar** (`avatar.tsx`) - User avatars
-- **Table** (`table.tsx`) - Data tables
-- **Chart** (`chart.tsx`) - Chart components (Recharts)
-- **Carousel** (`carousel.tsx`) - Image/content carousel
-- **Aspect Ratio** (`aspect-ratio.tsx`) - Maintain aspect ratios
-- **Pagination** (`pagination.tsx`) - Page navigation
-
-#### Direction Component
-
-- **Direction** (`direction.tsx`) - RTL/LTR support
-
-### Custom Components (uitripled/)
-
-Premium components from UI TripleD library featuring glassmorphism effects, smooth animations, and modern design patterns. All components are built with Framer Motion, shadcn/ui primitives, and Tailwind CSS.
-
-#### Authentication & Forms
-
-##### GlassForgotPasswordCard
-
-**File**: `src/components/uitripled/glass-forgot-password-card.tsx`
-
-Reset-password screen with glassmorphic styling and status messaging.
-
-**Features**:
-
-- Glassmorphism backdrop blur effect
-- Smooth animations with Framer Motion
-- Respects reduced motion preferences
-- Form submission handling with status feedback
-- Accessible with ARIA labels
-- Responsive design
-
-**Dependencies**: `framer-motion`, `react`
-**UI Components**: button, input, label
-
-**Usage**:
-
-```tsx
-import { GlassForgotPasswordCard } from "@/components/uitripled/glass-forgot-password-card";
-
-<GlassForgotPasswordCard />;
-```
-
-**Use Cases**: Password reset flows, authentication pages, user account recovery
-
-##### GlassSignInCard
-
-**File**: `src/components/uitripled/glass-sign-in-card.tsx`
-
-Glassmorphic sign-in panel with social auth buttons and email form.
-
-**Features**:
-
-- Social authentication buttons (Google, GitHub, etc.)
-- Email/password form with validation
-- "Remember me" checkbox
-- Glassmorphism effects
-- Smooth transitions
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button, checkbox, input, label
-
-**Usage**:
-
-```tsx
-import { GlassSignInCard } from "@/components/uitripled/glass-sign-in-card";
-
-<GlassSignInCard />;
-```
-
-**Use Cases**: Login pages, authentication flows, user sign-in
-
-##### GlassSignUpCard
-
-**File**: `src/components/uitripled/glass-sign-up-card.tsx`
-
-Glassmorphic sign-up flow with social providers, email fields, and terms checkbox.
-
-**Features**:
-
-- Social provider buttons
-- Email and password fields
-- Terms and conditions checkbox
-- Glassmorphism styling
-- Form validation ready
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button, checkbox, input, label
-
-**Usage**:
-
-```tsx
-import { GlassSignUpCard } from "@/components/uitripled/glass-sign-up-card";
-
-<GlassSignUpCard />;
-```
-
-**Use Cases**: User registration, sign-up flows, account creation pages
-
-#### Cards & Display Components
-
-##### GlassmorphismStatisticsCard
-
-**File**: `src/components/uitripled/glassmorphism-statistics-card.tsx`
-
-Interactive statistics card with hover reveal and smooth transitions.
-
-**Features**:
-
-- Image background with gradient overlay
-- Hover-triggered statistics reveal
-- Smooth scale animations
-- Icon-based stat display (Trophy, Target, Award icons)
-- Responsive grid layout
-- Loading state handling
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: card
-
-**Usage**:
-
-```tsx
-import { GlassmorphismStatisticsCard } from "@/components/uitripled/glassmorphism-statistics-card";
-
-<GlassmorphismStatisticsCard />;
-```
-
-**Use Cases**: Dashboard statistics, user profile cards, performance metrics, team member showcases, achievement displays
-
-**Customization**:
-Modify the athlete/user object to customize content:
-
-```typescript
-const athlete = {
-  name: "Your Name",
-  title: "Your Title",
-  description: "Your Description",
-  image: "image-url",
-  stats: [
-    { label: "Metric 1", value: "Value 1", icon: IconComponent },
-    { label: "Metric 2", value: "Value 2", icon: IconComponent },
-    { label: "Metric 3", value: "Value 3", icon: IconComponent },
-  ],
-};
-```
-
-##### GlassWalletCard
-
-**File**: `src/components/uitripled/glass-wallet-card.tsx`
-
-Glassmorphism crypto wallet card with balance, trend, and action buttons.
-
-**Features**:
-
-- Balance display with currency
-- Trend indicators
-- Action buttons (Send, Receive, etc.)
-- Glassmorphism effects
-- Smooth animations
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { GlassWalletCard } from "@/components/uitripled/glass-wallet-card";
-
-<GlassWalletCard />;
-```
-
-**Use Cases**: Crypto wallets, financial dashboards, balance displays, payment interfaces
-
-##### GlassBlockCard
-
-**File**: `src/components/uitripled/glass-block-card.tsx`
-
-Glassmorphism card component with customizable content blocks.
-
-**Features**:
-
-- Flexible content layout
-- Glassmorphism styling
-- Reusable block structure
-- Smooth animations
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { GlassBlockCard } from "@/components/uitripled/glass-block-card";
-
-<GlassBlockCard />;
-```
-
-**Use Cases**: Content cards, feature highlights, information blocks
-
-##### DetailTaskCard
-
-**File**: `src/components/uitripled/detail-task-card.tsx`
-
-Task management detail panel with animated assignee chips and editor controls.
-
-**Features**:
-
-- Task title and description editing
-- Assignee management with avatar chips
-- Priority and status dropdowns
-- Due date picker
-- Rich text editor controls
-- Animated interactions
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: badge, button, card, dropdown-menu, input, textarea
-
-**Usage**:
-
-```tsx
-import { DetailTaskCard } from "@/components/uitripled/detail-task-card";
-
-<DetailTaskCard />;
-```
-
-**Use Cases**: Task management, project tracking, CRM activities, todo applications
-
-##### EcommerceHighlightCard
-
-**File**: `src/components/uitripled/ecommerce-highlight-card.tsx`
-
-Product spotlight card with blurred border, bundle selector, and fulfillment details.
-
-**Features**:
-
-- Product image display
-- Bundle/variant selector
-- Price display
-- Fulfillment information
-- Add to cart button
-- Blurred border effects
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: badge, button, card, separator
-
-**Usage**:
-
-```tsx
-import { EcommerceHighlightCard } from "@/components/uitripled/ecommerce-highlight-card";
-
-<EcommerceHighlightCard />;
-```
-
-**Use Cases**: Product pages, e-commerce highlights, featured items, shopping carts
-
-##### ProjectCard
-
-**File**: `src/components/uitripled/project-card.tsx`
-
-Glassmorphism project card with links, tags, and hover effects.
-
-**Features**:
-
-- Project title and description
-- Technology tags
-- External links (GitHub, demo, etc.)
-- Hover animations
-- Glassmorphism styling
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { ProjectCard } from "@/components/uitripled/project-card";
-
-<ProjectCard />;
-```
-
-**Use Cases**: Portfolio pages, project showcases, case studies, work galleries
-
-##### PreviewCardDetails
-
-**File**: `src/components/uitripled/preview-card-details.tsx`
-
-Card component for previewing detailed information with smooth transitions.
-
-**Features**:
-
-- Preview/detail view toggle
-- Smooth expand/collapse animations
-- Content preview with "read more"
-- Responsive layout
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { PreviewCardDetails } from "@/components/uitripled/preview-card-details";
-
-<PreviewCardDetails />;
-```
-
-**Use Cases**: Article previews, content cards, expandable information panels
-
-#### Tickets & Event Components
-
-##### CinemaTicket
-
-**File**: `src/components/uitripled/cinema-ticket.tsx`
-
-Cinematic theater ticket with rip effect and barcode.
-
-**Features**:
-
-- Realistic ticket design
-- Rip/tear effect
-- Barcode display
-- Movie details (title, time, seat, etc.)
-- Animated interactions
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { CinemaTicket } from "@/components/uitripled/cinema-ticket";
-
-<CinemaTicket />;
-```
-
-**Use Cases**: Movie booking, cinema apps, event tickets, entertainment platforms
-
-##### TheaterTicket
-
-**File**: `src/components/uitripled/theater-ticket.tsx`
-
-Theater ticket with rip effect and barcode (similar to cinema ticket).
-
-**Features**:
-
-- Theater-specific styling
-- Rip effect animation
-- Barcode/QR code
-- Event details
-- Print-ready design
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { TheaterTicket } from "@/components/uitripled/theater-ticket";
-
-<TheaterTicket />;
-```
-
-**Use Cases**: Theater bookings, live events, concert tickets, show reservations
-
-##### ConferenceTicket
-
-**File**: `src/components/uitripled/conference-ticket.tsx`
-
-Animated conference ticket with glassmorphism effects and holographic details.
-
-**Features**:
-
-- Holographic/3D effects
-- Glassmorphism styling
-- Conference details (name, date, venue)
-- Attendee information
-- QR code integration
-- Premium animations
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { ConferenceTicket } from "@/components/uitripled/conference-ticket";
-
-<ConferenceTicket />;
-```
-
-**Use Cases**: Conference registration, event passes, tech meetups, professional events
-
-#### Dashboard & Data Components
-
-##### Dashboard
-
-**File**: `src/components/uitripled/dashboard.tsx`
-
-Interactive stock portfolio dashboard with status cards, data table, and detailed stock information modal.
-
-**Features**:
-
-- Portfolio overview cards
-- Stock data table
-- Real-time price updates
-- Detailed stock modal
-- Performance charts
-- Status badges
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: badge, button
-
-**Usage**:
-
-```tsx
-import { Dashboard } from "@/components/uitripled/dashboard";
-
-<Dashboard />;
-```
-
-**Use Cases**: Stock portfolios, financial dashboards, investment tracking, analytics platforms
-
-##### WeatherDashboard
-
-**File**: `src/components/uitripled/weather-dashboard.tsx`
-
-Immersive weather dashboard with hourly charting, weekly outlook, and live air-quality alerts.
-
-**Features**:
-
-- Current weather display
-- Hourly forecast chart
-- Weekly outlook
-- Air quality indicators
-- Temperature trends
-- Weather alerts
-- Location-based data
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: badge, button
-
-**Usage**:
-
-```tsx
-import { WeatherDashboard } from "@/components/uitripled/weather-dashboard";
-
-<WeatherDashboard />;
-```
-
-**Use Cases**: Weather apps, environmental monitoring, travel planning, outdoor activity apps
-
-##### AccessibleCashFlowChart
-
-**File**: `src/components/uitripled/accessible-cash-flow-chart.tsx`
-
-Accessible cash flow chart with keyboard navigation and screen reader support.
-
-**Features**:
-
-- Cash flow visualization
-- Accessible data representation
-- Keyboard navigation
-- Screen reader compatible
-- Interactive tooltips
-- Responsive design
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { AccessibleCashFlowChart } from "@/components/uitripled/accessible-cash-flow-chart";
-
-<AccessibleCashFlowChart />;
-```
-
-**Use Cases**: Financial reports, accounting dashboards, business analytics, budget tracking
-
-#### Lists & Interactive Components
-
-##### AnimatedList
-
-**File**: `src/components/uitripled/animated-list.tsx`
-
-List with staggered item animations and checkmarks.
-
-**Features**:
-
-- Staggered entrance animations
-- Checkmark indicators
-- Smooth transitions
-- Customizable items
-- Responsive layout
-
-**Dependencies**: `framer-motion`, `lucide-react`
-**UI Components**: card
-
-**Usage**:
-
-```tsx
-import { AnimatedList } from "@/components/uitripled/animated-list";
-
-<AnimatedList />;
-```
-
-**Use Cases**: Feature lists, checklist displays, onboarding steps, progress indicators
-
-##### DraggableList
-
-**File**: `src/components/uitripled/draggable-list.tsx`
-
-Reorderable list with drag and drop spring physics.
-
-**Features**:
-
-- Drag and drop reordering
-- Spring physics animations
-- Touch support
-- Visual feedback during drag
-- Persistent order state
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button
-
-**Usage**:
-
-```tsx
-import { DraggableList } from "@/components/uitripled/draggable-list";
-
-<DraggableList />;
-```
-
-**Use Cases**: Task prioritization, playlist management, sortable tables, customizable dashboards
-
-#### Navigation & Interaction Components
-
-##### AnimatedProfileMenu
-
-**File**: `src/components/uitripled/animated-profile-menu.tsx`
-
-Floating profile avatar that reveals quick action cards with smooth motion.
-
-**Features**:
-
-- Profile avatar display
-- Expandable action menu
-- Smooth animations
-- Quick actions (profile, settings, logout)
-- Hover/click interactions
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: avatar
-
-**Usage**:
-
-```tsx
-import { AnimatedProfileMenu } from "@/components/uitripled/animated-profile-menu";
-
-<AnimatedProfileMenu />;
-```
-
-**Use Cases**: User menus, profile dropdowns, navigation headers, account management
-
-##### ExpandingSearchDock
-
-**File**: `src/components/uitripled/expanding-search-dock.tsx`
-
-Minimal search icon that expands into full input with blur effects.
-
-**Features**:
-
-- Compact icon state
-- Expands to full search input
-- Backdrop blur effect
-- Smooth transitions
-- Auto-focus on expand
-- Keyboard shortcuts
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button
-
-**Usage**:
-
-```tsx
-import { ExpandingSearchDock } from "@/components/uitripled/expanding-search-dock";
-
-<ExpandingSearchDock />;
-```
-
-**Use Cases**: Navigation bars, toolbars, mobile interfaces, space-constrained layouts
-
-##### NotificationCenter
-
-**File**: `src/components/uitripled/notification-center.tsx`
-
-Multi-variant notification stack with accessible announcements, actions, and motion states.
-
-**Features**:
-
-- Multiple notification types (success, error, info, warning)
-- Action buttons
-- Dismiss functionality
-- Stack management
-- Accessible announcements
-- Auto-dismiss timers
-- Motion states
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button, card
-
-**Usage**:
-
-```tsx
-import { NotificationCenter } from "@/components/uitripled/notification-center";
-
-<NotificationCenter />;
-```
-
-**Use Cases**: Toast notifications, alert systems, user feedback, status updates
-
-#### Sliders & Carousels
-
-##### CardsSlider
-
-**File**: `src/components/uitripled/cards-slider.tsx`
-
-Liquid smooth draggable cards slider with shadcn/ui styling and framer-motion animations.
-
-**Features**:
-
-- Smooth drag interactions
-- Momentum scrolling
-- Snap to card
-- Touch support
-- Responsive design
-- Navigation indicators
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { CardsSlider } from "@/components/uitripled/cards-slider";
-
-<CardsSlider />;
-```
-
-**Use Cases**: Image galleries, product showcases, testimonials, portfolio displays
-
-##### AccessibleImageSliderCard
-
-**File**: `src/components/uitripled/accessible-image-slider-card.tsx`
-
-Accessible image slider with keyboard navigation and screen reader support.
-
-**Features**:
-
-- Keyboard navigation (arrow keys)
-- Screen reader announcements
-- Focus management
-- Image captions
-- Navigation controls
-- Accessible indicators
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { AccessibleImageSliderCard } from "@/components/uitripled/accessible-image-slider-card";
-
-<AccessibleImageSliderCard />;
-```
-
-**Use Cases**: Image galleries, product photos, before/after comparisons, portfolio showcases
-
-#### Page Sections & Layouts
-
-##### CTABannerSection
-
-**File**: `src/components/uitripled/cta-banner-section.tsx`
-
-Animated call-to-action banner with gradient background and button animations.
-
-**Features**:
-
-- Gradient background effects
-- Animated CTA buttons
-- Headline and subheadline
-- Multiple button variants
-- Responsive layout
-- Eye-catching animations
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button, card
-
-**Usage**:
-
-```tsx
-import { CTABannerSection } from "@/components/uitripled/cta-banner-section";
-
-<CTABannerSection />;
-```
-
-**Use Cases**: Landing pages, marketing sections, conversion banners, promotional content
-
-##### FAQSection
-
-**File**: `src/components/uitripled/faq-section.tsx`
-
-Animated FAQ section with expandable questions and smooth transitions.
-
-**Features**:
-
-- Expandable/collapsible questions
-- Smooth accordion animations
-- Search/filter capability
-- Organized categories
-- Accessible keyboard navigation
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: card
-
-**Usage**:
-
-```tsx
-import { FAQSection } from "@/components/uitripled/faq-section";
-
-<FAQSection />;
-```
-
-**Use Cases**: Help pages, support sections, documentation, product information
-
-##### PricingSection
-
-**File**: `src/components/uitripled/pricing-section.tsx`
-
-Animated pricing cards with hover effects and feature lists.
-
-**Features**:
-
-- Multiple pricing tiers
-- Feature comparison lists
-- Hover animations
-- Popular/recommended badges
-- CTA buttons
-- Responsive grid layout
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: badge, button, card
-
-**Usage**:
-
-```tsx
-import { PricingSection } from "@/components/uitripled/pricing-section";
-
-<PricingSection />;
-```
-
-**Use Cases**: Pricing pages, subscription plans, product tiers, SaaS pricing
-
-##### DynamicSpotlightCTA
-
-**File**: `src/components/uitripled/dynamic-spotlight-cta.tsx`
-
-Floating spotlight follows cursor to reveal gradient CTA text with premium effects.
-
-**Features**:
-
-- Cursor-following spotlight
-- Gradient text reveal
-- Premium visual effects
-- Smooth cursor tracking
-- Responsive to mouse movement
-- Paywall/premium feel
-
-**Dependencies**: `framer-motion`, `react`
-
-**Usage**:
-
-```tsx
-import { DynamicSpotlightCTA } from "@/components/uitripled/dynamic-spotlight-cta";
-
-<DynamicSpotlightCTA />;
-```
-
-**Use Cases**: Premium content teasers, paywall banners, hero sections, interactive CTAs
-
-#### Content & Typography
-
-##### BlogTypography
-
-**File**: `src/components/uitripled/blog-typography.tsx`
-
-Beautiful blog post typography with text, links, images, blockquotes, and code examples.
-
-**Features**:
-
-- Optimized typography styles
-- Styled headings (h1-h6)
-- Formatted paragraphs
-- Styled links
-- Blockquote styling
-- Code block formatting
-- Image captions
-- List styling
-
-**Dependencies**: `framer-motion`, `react`
-**UI Components**: button
-
-**Usage**:
-
-```tsx
-import { BlogTypography } from "@/components/uitripled/blog-typography";
-
-<BlogTypography />;
-```
-
-**Use Cases**: Blog posts, articles, documentation, content pages, markdown rendering
-
-#### Chat & Communication
-
-##### AIChatInterface
-
-**File**: `src/components/uitripled/ai-chat-interface.tsx`
-
-Chat input with attachments, model selector, and accessible controls.
-
-**Features**:
-
-- Message input with auto-resize
-- File attachment support
-- AI model selector
-- Send button with loading state
-- Keyboard shortcuts (Enter to send)
-- Accessible controls
-- Character/token counter
-
-**Dependencies**: `framer-motion`, `lucide-react`, `react`
-**UI Components**: button, textarea
-
-**Usage**:
-
-```tsx
-import { AIChatInterface } from "@/components/uitripled/ai-chat-interface";
-
-<AIChatInterface />;
-```
-
-**Use Cases**: AI chat applications, customer support, messaging interfaces, chatbots
-
----
-
-### Component Categories Summary
-
-**Authentication (3)**: GlassForgotPasswordCard, GlassSignInCard, GlassSignUpCard
-**Cards (7)**: GlassmorphismStatisticsCard, GlassWalletCard, GlassBlockCard, DetailTaskCard, EcommerceHighlightCard, ProjectCard, PreviewCardDetails
-**Tickets (3)**: CinemaTicket, TheaterTicket, ConferenceTicket
-**Dashboards (3)**: Dashboard, WeatherDashboard, AccessibleCashFlowChart
-**Lists (2)**: AnimatedList, DraggableList
-**Navigation (3)**: AnimatedProfileMenu, ExpandingSearchDock, NotificationCenter
-**Sliders (2)**: CardsSlider, AccessibleImageSliderCard
-**Sections (4)**: CTABannerSection, FAQSection, PricingSection, DynamicSpotlightCTA
-**Content (1)**: BlogTypography
-**Chat (1)**: AIChatInterface
-
-**Total: 29 Premium Components**
-
-### Component Usage Patterns
-
-#### Button Variants
-
-```tsx
-<Button variant="default">Default</Button>
-<Button variant="destructive">Delete</Button>
-<Button variant="outline">Outline</Button>
-<Button variant="secondary">Secondary</Button>
-<Button variant="ghost">Ghost</Button>
-<Button variant="link">Link</Button>
-```
-
-#### Button Sizes
-
-```tsx
-<Button size="xs">Extra Small</Button>
-<Button size="sm">Small</Button>
-<Button size="default">Default</Button>
-<Button size="lg">Large</Button>
-<Button size="icon"><Icon /></Button>
-```
-
-#### Card Structure
-
-```tsx
-<Card>
-  <CardHeader>
-    <CardTitle>Title</CardTitle>
-    <CardDescription>Description</CardDescription>
-    <CardAction>
-      <Button>Action</Button>
-    </CardAction>
-  </CardHeader>
-  <CardContent>Content goes here</CardContent>
-  <CardFooter>Footer content</CardFooter>
-</Card>
-```
-
-#### Sidebar Implementation
-
-```tsx
-<SidebarProvider>
-  <Sidebar>
-    <SidebarHeader>Header</SidebarHeader>
-    <SidebarContent>
-      <SidebarGroup>
-        <SidebarGroupLabel>Group</SidebarGroupLabel>
-        <SidebarGroupContent>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton>Item</SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarGroupContent>
-      </SidebarGroup>
-    </SidebarContent>
-    <SidebarFooter>Footer</SidebarFooter>
-  </Sidebar>
-  <SidebarInset>Main content</SidebarInset>
-</SidebarProvider>
-```
-
-## 🔌 Providers
-
-### Theme Provider
-
-**File**: `src/providers/theme.tsx`
-
-Wraps `next-themes` for dark mode support.
-
-**Features**:
-
-- System theme detection
-- Manual theme switching
-- Persistent theme preference
-- No flash on page load
-
-**Configuration** (in `layout.tsx`):
-
-```tsx
-<ThemeProvider
-  attribute="class" // Uses class-based dark mode
-  defaultTheme="dark" // Default to dark theme
-  enableSystem // Allow system preference
-  disableTransitionOnChange // Prevent transition flicker
->
-  {children}
-</ThemeProvider>
-```
-
-**Usage in Components**:
-
-```tsx
-import { useTheme } from "next-themes";
-
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-
-  return (
-    <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-      Toggle Theme
-    </button>
-  );
-}
-```
-
-### Tooltip Provider
-
-**File**: `@/components/ui/tooltip`
-
-Provides tooltip context for the entire app.
-
-**Configuration**:
-
-```tsx
-<TooltipProvider>{children}</TooltipProvider>
-```
-
-### Toast Provider
-
-**File**: `@/components/ui/sonner`
-
-Sonner toast notifications are automatically available via the `<Toaster />` component in the root layout.
-
-**Usage**:
-
-```tsx
-import { toast } from "sonner";
-
-toast.success("Success message");
-toast.error("Error message");
-toast.info("Info message");
-toast.warning("Warning message");
-```
-
-## 🪝 Hooks
-
-### useIsMobile
-
-**File**: `src/hooks/use-mobile.ts`
-
-Detects if the viewport is mobile-sized (< 768px).
-
-**Usage**:
-
-```tsx
-import { useIsMobile } from "@/hooks/use-mobile";
-
-function Component() {
-  const isMobile = useIsMobile();
-
-  return <div>{isMobile ? <MobileView /> : <DesktopView />}</div>;
-}
-```
-
-**Features**:
-
-- Reactive to window resize
-- SSR-safe (returns undefined initially)
-- Uses matchMedia API
-- Breakpoint: 768px
-
-### useSidebar
-
-**File**: `@/components/ui/sidebar`
-
-Manages sidebar state (from SidebarProvider).
-
-**Usage**:
-
-```tsx
-import { useSidebar } from "@/components/ui/sidebar";
-
-function Component() {
-  const {
-    state, // "expanded" | "collapsed"
-    open, // boolean
-    setOpen, // (open: boolean) => void
-    openMobile, // boolean
-    setOpenMobile, // (open: boolean) => void
-    isMobile, // boolean
-    toggleSidebar, // () => void
-  } = useSidebar();
-
-  return <button onClick={toggleSidebar}>Toggle</button>;
-}
-```
-
-## 🗄️ Database
-
-### Overview
-
-The template uses **Drizzle ORM** with **Turso** (LibSQL) for a fully type-safe, edge-ready database solution. Turso provides a SQLite-compatible database that can be deployed globally with low latency.
-
-### Database Stack
-
-- **Drizzle ORM 0.45.1** - Type-safe ORM with excellent TypeScript support
-- **@libsql/client 0.17.0** - Official Turso/LibSQL client
-- **Drizzle Kit 0.31.9** - CLI for schema management and migrations
-- **SQLite dialect** - Using Turso's SQLite-compatible engine
-
-### Configuration
-
-**File**: `drizzle.config.ts`
-
-```typescript
-import { defineConfig } from "drizzle-kit";
-import { config } from "dotenv";
-
-config({ path: ".env.local" });
-
-export default defineConfig({
-  schema: "./src/lib/db/schema.ts",
-  out: "./src/lib/db/migrations",
-  dialect: "turso",
-  dbCredentials: {
-    url: process.env.TURSO_DATABASE_URL!,
-    authToken: process.env.TURSO_AUTH_TOKEN!,
-  },
-  verbose: true,
-  strict: true,
-});
-```
-
-### Environment Variables
-
-The template includes a `.env.example` file that documents all required and optional environment variables. Copy it to create your local environment file:
-
-```bash
-cp .env.example .env.local
-```
-
-**Complete Environment Variables**:
-
-```bash
-# ─── Database — Turso (LibSQL) ────────────────────────────────────────────────
-# Get these from: https://app.turso.tech → your database → Connect
-TURSO_DATABASE_URL=libsql://your-database-name.turso.io
-TURSO_AUTH_TOKEN=
-
-# ─── Next.js ──────────────────────────────────────────────────────────────────
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_TELEMETRY_DISABLED=1
-
-# ─── Email — Resend (optional) ────────────────────────────────────────────────
-# Get API key from: https://resend.com/api-keys
-RESEND_API_KEY=
-EMAIL_FROM=noreply@yourdomain.com
-
-# ─── Automations ──────────────────────────────────────────────────────────────
-# Generate a random secret: openssl rand -base64 32
-AUTOMATION_SECRET=
-CRON_SECRET=
-```
-
-**Environment Variable Descriptions**:
-
-**Database (Required)**:
-
-- `TURSO_DATABASE_URL` - Your Turso database connection URL
-- `TURSO_AUTH_TOKEN` - Authentication token for Turso database access
-
-**Next.js**:
-
-- `NEXT_PUBLIC_APP_URL` - Public URL of your application (used for absolute URLs)
-- `NEXT_TELEMETRY_DISABLED` - Disable Next.js telemetry (set to `1` to disable)
-
-**Email (Optional)**:
-
-- `RESEND_API_KEY` - API key from Resend for sending emails
-- `EMAIL_FROM` - Default sender email address
-
-**Automations (Optional)**:
-
-- `AUTOMATION_SECRET` - Secret key for securing automation endpoints
-- `CRON_SECRET` - Secret key for securing cron job endpoints
-
-**Getting Turso Credentials**:
-
-1. Install Turso CLI: `curl -sSfL https://get.tur.so/install.sh | bash`
-2. Sign up: `turso auth signup`
-3. Create database: `turso db create your-database-name`
-4. Get URL: `turso db show your-database-name --url`
-5. Create token: `turso db tokens create your-database-name`
-
-**Security Notes**:
-
-- Never commit `.env.local` to version control (it's in `.gitignore`)
-- Use different values for development, staging, and production
-- Rotate secrets regularly in production environments
-- Generate strong secrets using: `openssl rand -base64 32`
-
-### Database Client
-
-**File**: `src/lib/db/client.ts`
-
-```typescript
-import { createClient } from "@libsql/client";
-import { drizzle } from "drizzle-orm/libsql";
-import * as schema from "./schema";
-
-const client = createClient({
-  url: process.env.TURSO_DATABASE_URL!,
-  authToken: process.env.TURSO_AUTH_TOKEN!,
-});
-
-export const db = drizzle(client, { schema });
-export type DB = typeof db;
-```
-
-### Database Schema
-
-**File**: `src/lib/db/schema.ts`
-
-The schema file defines your database tables using Drizzle's schema builder. It includes:
-
-- **UUID Primary Keys** - All IDs are UUIDs stored as TEXT
-- **Timestamps** - Automatic `createdAt` and `updatedAt` fields
-- **Type Safety** - Full TypeScript inference for queries
-- **SQLite Compatibility** - Uses SQLite data types (TEXT, INTEGER, REAL)
-
-**Example Schema**:
-
-```typescript
-import { text, integer, sqliteTable } from "drizzle-orm/sqlite-core";
-import { sql } from "drizzle-orm";
-
-const timestamps = {
-  createdAt: text("created_at")
-    .notNull()
-    .default(sql`(datetime('now'))`),
-  updatedAt: text("updated_at")
-    .notNull()
-    .default(sql`(datetime('now'))`),
-};
-
-export const users = sqliteTable("users", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
-  email: text("email").notNull().unique(),
-  firstName: text("first_name").notNull(),
-  lastName: text("last_name").notNull(),
-  role: text("role", { enum: ["admin", "member", "viewer"] })
-    .notNull()
-    .default("member"),
-  avatarUrl: text("avatar_url"),
-  isActive: integer("is_active", { mode: "boolean" }).notNull().default(true),
-  ...timestamps,
-});
-
-export type User = typeof users.$inferSelect;
-export type NewUser = typeof users.$inferInsert;
-```
-
-### Database Exports
-
-**File**: `src/lib/db/index.ts`
-
-```typescript
-export { db } from "./client";
-export type { DB } from "./client";
-export * from "./schema";
-```
-
-### Usage in Your App
-
-#### Querying Data
-
-```typescript
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-
-// Select all users
-const allUsers = await db.select().from(users);
-
-// Select with conditions
-const activeUsers = await db
-  .select()
-  .from(users)
-  .where(eq(users.isActive, true));
-
-// Select specific user
-const user = await db.select().from(users).where(eq(users.id, userId));
-```
-
-#### Inserting Data
-
-```typescript
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-
-// Insert single user
-const newUser = await db
-  .insert(users)
-  .values({
-    email: "user@example.com",
-    firstName: "John",
-    lastName: "Doe",
-    role: "member",
-  })
-  .returning();
-
-// Insert multiple users
-const newUsers = await db
-  .insert(users)
-  .values([
-    { email: "user1@example.com", firstName: "John", lastName: "Doe" },
-    { email: "user2@example.com", firstName: "Jane", lastName: "Smith" },
-  ])
-  .returning();
-```
-
-#### Updating Data
-
-```typescript
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-
-// Update user
-const updated = await db
-  .update(users)
-  .set({
-    firstName: "Jane",
-    updatedAt: new Date().toISOString(),
-  })
-  .where(eq(users.id, userId))
-  .returning();
-```
-
-#### Deleting Data
-
-```typescript
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-
-// Delete user
-await db.delete(users).where(eq(users.id, userId));
-```
-
-#### Using in Server Components
-
-```typescript
-// app/users/page.tsx
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-
-export default async function UsersPage() {
-  const allUsers = await db.select().from(users);
-
-  return (
-    <div>
-      {allUsers.map((user) => (
-        <div key={user.id}>
-          {user.firstName} {user.lastName}
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-#### Using in API Routes
-
-```typescript
-// app/api/users/route.ts
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  const allUsers = await db.select().from(users);
-  return NextResponse.json(allUsers);
-}
-
-export async function POST(request: Request) {
-  const body = await request.json();
-  const newUser = await db.insert(users).values(body).returning();
-  return NextResponse.json(newUser[0]);
-}
-```
-
-### Migrations
-
-Turso uses a push-based workflow instead of traditional migration files. The schema is managed by the Logic Architect Agent.
-
-#### Push Schema to Database
-
-After the Logic Architect Agent modifies your schema in `src/lib/db/schema.ts`, push changes directly to your Turso database:
-
-```bash
-pnpm drizzle-kit push
-```
-
-This command:
-
-- Compares your local schema with the remote database
-- Generates and applies the necessary SQL changes
-- Updates your Turso database instantly
-
-#### Drizzle Studio
-
-Launch Drizzle Studio to visually browse and edit your database:
-
-```bash
-pnpm drizzle-kit studio
-```
-
-Opens at `https://local.drizzle.studio`
-
-**Note**: The schema file (`src/lib/db/schema.ts`) is managed by the Logic Architect Agent. Manual edits should be made carefully and pushed using `drizzle-kit push`.
-
-### SQLite Data Type Guidelines
-
-When working with Turso/LibSQL (SQLite dialect):
-
-- **IDs**: Use `text("id")` for UUIDs
-- **Strings**: Use `text("column_name")`
-- **Numbers**: Use `integer("column_name")` for whole numbers
-- **Decimals**: Use `real("column_name")` for floating point
-- **Currency**: Use `integer("amount_cents")` for cents or `text("amount")` for precision
-- **Booleans**: Use `integer("is_active", { mode: "boolean" })`
-- **Dates**: Use `text("created_at")` with ISO strings
-- **JSON**: Use `text("data", { mode: "json" })`
-- **Enums**: Use `text("role", { enum: ["admin", "user"] })`
-
-### Best Practices
-
-1. **Always use transactions** for multiple related operations
-2. **Use prepared statements** for repeated queries
-3. **Index frequently queried columns** for better performance
-4. **Use relations** for type-safe joins
-5. **Validate data** before inserting into the database
-6. **Use `.returning()`** to get inserted/updated data
-7. **Handle errors** gracefully with try-catch blocks
-8. **Use environment variables** for database credentials
-9. **Never commit** `.env.local` to version control
-10. **Run migrations** in a CI/CD pipeline before deployment
-
-### Type Safety
-
-Drizzle provides full TypeScript inference:
-
-```typescript
-import { db } from "@/lib/db";
-import { users } from "@/lib/db/schema";
-
-// TypeScript knows the exact shape of the result
-const result = await db.select().from(users);
-// result: { id: string; email: string; firstName: string; ... }[]
-
-// TypeScript validates insert data
-await db.insert(users).values({
-  email: "test@example.com",
-  firstName: "John",
-  lastName: "Doe",
-  // TypeScript error if required fields are missing
-});
-```
-
-### Resources
-
-- [Drizzle ORM Documentation](https://orm.drizzle.team/)
-- [Turso Documentation](https://docs.turso.tech/)
-- [Drizzle Kit CLI](https://orm.drizzle.team/kit-docs/overview)
-- [LibSQL Client](https://github.com/tursodatabase/libsql-client-ts)
-
-## 🎨 Styling
-
-### Utility Function: cn()
-
-**File**: `src/lib/utils.ts`
-
-Combines `clsx` and `tailwind-merge` for conflict-free class merging.
-
-**Usage**:
-
-```tsx
-import { cn } from "@/lib/utils";
-
-<div
-  className={cn(
-    "base-classes",
-    condition && "conditional-classes",
-    "override-classes",
-  )}
-/>;
-```
-
-### Global Styles
-
-**File**: `src/app/globals.css`
-
-Contains:
-
-- Tailwind CSS imports
-- Design tokens (CSS variables)
-- Base layer styles
-- Custom animations
-- Theme definitions
-
-### Tailwind Configuration
-
-The project uses **Tailwind CSS v4** with inline theme configuration in `globals.css`.
-
-**Key Features**:
-
-- CSS variable-based theming
-- Custom color palette
-- Font family tokens
-- Border radius system
-- Dark mode support via `@custom-variant dark`
-
-### Adding Custom Styles
-
-1. **Use Tailwind utilities** (preferred):
-
-```tsx
-<div className="bg-primary text-primary-foreground rounded-lg p-4" />
-```
-
-2. **Use CSS variables**:
-
-```tsx
-<div style={{ backgroundColor: "var(--brand-primary)" }} />
-```
-
-3. **Extend in globals.css**:
-
-```css
-@layer base {
-  .custom-class {
-    @apply bg-primary text-white;
-  }
-}
-```
-
-## ⚙️ Configuration
-
-### package.json
-
-**Key Scripts**:
-
-- `dev`: Start development server
-- `build`: Build for production
-- `start`: Start production server
-- `lint`: Run Biome linter
-- `format`: Format code with Biome
-
-**Package Manager**: pnpm 10.18.0
-**Node Version**: >= 22.21.0
-
-### components.json
-
-shadcn/ui configuration:
-
-```json
-{
-  "style": "new-york", // Component style variant
-  "rsc": true, // React Server Components
-  "tsx": true, // TypeScript
-  "tailwind": {
-    "config": "",
-    "css": "src/app/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide", // Icon library
-  "rtl": false, // Right-to-left support
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  }
-}
-```
-
-### tsconfig.json
-
-TypeScript configuration with path aliases:
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2017",
-    "strict": true,
-    "paths": {
-      "@/*": ["./src/*"] // Import alias
-    }
-  }
-}
-```
-
-### biome.json
-
-Biome linter and formatter configuration:
-
-```json
-{
-  "formatter": {
-    "indentStyle": "space",
-    "indentWidth": 2
-  },
-  "linter": {
-    "rules": {
-      "recommended": true
-    },
-    "domains": {
-      "next": "recommended",
-      "react": "recommended"
-    }
-  }
-}
-```
-
-### next.config.ts
-
-Next.js configuration (currently minimal, ready for customization).
-
-## 📚 Development Guidelines
-
-### For Falcon Agent
-
-When building CRMs with this template:
-
-1. **Use Existing Components**: Leverage the 40+ shadcn/ui components before creating custom ones
-2. **Follow Naming Conventions**: Use kebab-case for files, PascalCase for components
-3. **Maintain Type Safety**: Always use TypeScript, avoid `any` types
-4. **Respect Design Tokens**: Use CSS variables and Tailwind utilities
-5. **Keep Accessibility**: All components are accessible by default, maintain ARIA labels
-6. **Mobile-First**: Design for mobile, enhance for desktop
-7. **Dark Mode**: Test both light and dark themes
-8. **Use Path Aliases**: Import with `@/` prefix (e.g., `@/components/ui/button`)
-
-### Component Creation Pattern
-
-```tsx
-import * as React from "react";
-import { cn } from "@/lib/utils";
-
-interface ComponentProps extends React.ComponentProps<"div"> {
-  variant?: "default" | "custom";
-}
-
-export function Component({
-  className,
-  variant = "default",
-  ...props
-}: ComponentProps) {
-  return (
-    <div
-      className={cn(
-        "base-classes",
-        variant === "custom" && "custom-classes",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-```
-
-### Adding New shadcn/ui Components
-
-```bash
-# Install a new component
-pnpm dlx shadcn@latest add [component-name]
-
-# Example: Add the command component
-pnpm dlx shadcn@latest add command
-```
-
-### Database Setup (Drizzle ORM + Turso)
-
-The template includes Drizzle ORM with Turso (LibSQL) database. To set up:
-
-1. Schema lives in `src/lib/db/schema.ts` — managed by Logic Architect Agent
-2. Configure Turso credentials in `.env.local` (see [Database](#-database) section)
-3. Push schema to database:
-
-```bash
-pnpm drizzle-kit push
-```
-
-**Note**: Turso uses a push-based workflow. The `drizzle-kit push` command compares your schema with the remote database and applies changes directly.
-
 ## 🏗 Building for Production
 
-### Build Process
-
 ```bash
-# Create production build
+# Build the application
 pnpm build
 
 # Start production server
 pnpm start
 ```
 
-### Optimization Features
+### Production Checklist
 
-- **Automatic Code Splitting**: Next.js splits code by route
-- **Image Optimization**: Use `next/image` for optimized images
-- **Font Optimization**: Google Fonts are automatically optimized
-- **CSS Optimization**: Tailwind purges unused styles
-- **Tree Shaking**: Unused code is removed
+- [ ] Set `DATABASE_URL` and `DATABASE_URL` to production database
+- [ ] Set `NEXT_PUBLIC_SUPABASE_URL` and keys to production Supabase
+- [ ] Run `pnpm db:migrate` on production database
+- [ ] Set `NEXT_PUBLIC_APP_URL` to production domain
+- [ ] Enable `NEXT_TELEMETRY_DISABLED=1` if desired
+- [ ] Test authentication flow
+- [ ] Test database connections
+- [ ] Verify environment variables are set
 
-### Environment Variables
+## 📚 Additional Resources
 
-Create `.env.local` for environment-specific variables:
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Drizzle ORM Documentation](https://orm.drizzle.team)
+- [Neon PostgreSQL Documentation](https://neon.tech/docs)
+- [Supabase Documentation](https://supabase.com/docs)
+- [shadcn/ui Documentation](https://ui.shadcn.com)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
-```env
-# Database
-DATABASE_URL=
+## 📄 License
 
-# API Keys
-NEXT_PUBLIC_API_URL=
+This template is created for use with Falcon Agent.
 
-# Add your variables here
-```
+## 👤 Author
 
-**Note**: `.env*` files are gitignored by default.
-
-## 📖 Additional Resources
-
-### shadcn/ui Documentation
-
-- Official Docs: https://ui.shadcn.com
-- Component Examples: https://ui.shadcn.com/docs/components
-- Theming Guide: https://ui.shadcn.com/docs/theming
-- CLI Reference: https://ui.shadcn.com/docs/cli
-
-### Next.js Documentation
-
-- Next.js Docs: https://nextjs.org/docs
-- App Router: https://nextjs.org/docs/app
-- API Reference: https://nextjs.org/docs/app/api-reference
-
-### Tailwind CSS
-
-- Tailwind Docs: https://tailwindcss.com/docs
-- Tailwind v4: https://tailwindcss.com/blog/tailwindcss-v4-alpha
-
-### Other Libraries
-
-- Framer Motion: https://www.framer.com/motion
-- Radix UI: https://www.radix-ui.com
-- Drizzle ORM: https://orm.drizzle.team
-- Lucide Icons: https://lucide.dev
-
-## 🤝 Contributing
-
-This template is maintained for Falcon Agent usage. When extending:
-
-1. Maintain existing patterns and conventions
-2. Document new components thoroughly
-3. Test in both light and dark modes
-4. Ensure mobile responsiveness
-5. Keep accessibility standards
-
-## 📝 License
-
-Private template for Falcon Agent usage.
-
-**Author**: usmanunfolds@alabura.com
+**usmanunfolds@alabura.com**
 
 ---
 
-**Version**: 1.0.0  
-**Last Updated**: 2026-02-09  
-**Template Status**: Production Ready ✅
+Built with ❤️ for Falcon Agent

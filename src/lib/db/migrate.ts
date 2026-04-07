@@ -6,12 +6,12 @@ import { config } from "dotenv";
 config();
 
 const runMigrate = async () => {
-  if (!process.env.DATABASE_POOLER_URL) {
-    console.log("DATABASE_POOLER_URL is not defined, skipping migrations");
+  if (!process.env.DATABASE_URL) {
+    console.log("DATABASE_URL is not defined, skipping migrations");
     process.exit(0);
   }
 
-  const connection = postgres(process.env.DATABASE_POOLER_URL, { max: 1 });
+  const connection = postgres(process.env.DATABASE_URL, { max: 1 });
   const db = drizzle(connection);
 
   console.log("⏳ Running migrations...");
