@@ -36,13 +36,6 @@ export default function Home() {
             ~ Elon, 2026
           </footer>
         </div>
-
-        {/* CTA or additional info */}
-        <div className="pt-8">
-          <p className="text-sm text-muted-foreground">
-            Built with Next.js, TypeScript, Tailwind CSS v4, and shadcn/ui
-          </p>
-        </div>
       </div>
     </main>
   );
