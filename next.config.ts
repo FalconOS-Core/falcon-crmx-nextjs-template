@@ -30,10 +30,12 @@ const nextConfig: NextConfig = {
               "http://localhost:3001",
               "http://localhost:7200",
               // Production Falcon domains
-              "https://*.falcon.build",
-              "https://falcon.build",
+              "https://falconos.dev",
+              "https://www.falconos.dev",
               // Allow embedding within any Vercel deployment
               "https://*.vercel.app",
+              "https://falconos.app",
+              "https://*.falconos.app",
             ].join(" "),
           },
         ],
